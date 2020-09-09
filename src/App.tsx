@@ -20,7 +20,7 @@ function App() {
         </a>
       </header>
       <article>
-        Jolo<p>pew pew pew pew</p>
+        Jolo<p>pew pew pew pew arrrr</p>
       </article>
     </div>
   );
