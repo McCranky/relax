@@ -4,15 +4,18 @@ import "../App.scss";
 
 interface Props {
   time: number;
+  allowModifing: boolean;
   sfx?: string;
   onTimeRunsOut?: any;
 }
 
-const Timer = (props: Props) => {
+const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   const [seconds, setSeconds] = useState(props.time);
+  const [bounce, setBounce] = useState(false);
   const beep = new UIfx(props.sfx || "http://127.0.0.1:8000/sfx/ding.mp3");
 
   const modifySeconds = (num: number) => {
+    setBounce(true);
     setSeconds(seconds + num);
   };
 
@@ -26,9 +29,9 @@ const Timer = (props: Props) => {
     } else {
       beep.play();
       clearInterval(interval);
-      if (props.onTimeRunsOut) {
+      if (onTimeRunsOut) {
         timeout = setTimeout(() => {
-          props.onTimeRunsOut();
+          onTimeRunsOut();
         }, 1000);
       }
     }
@@ -36,17 +39,26 @@ const Timer = (props: Props) => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [seconds]);
+  }, [seconds, beep, onTimeRunsOut]);
 
   return (
     <div className="timer">
-      <button className="btn add" onClick={() => modifySeconds(5)}>
-        + 5
-      </button>
-      <div className="time">{seconds}</div>
-      <button className="btn sub" onClick={() => modifySeconds(-5)}>
-        - 5
-      </button>
+      {true && (
+        <button className="btn sub" onClick={() => modifySeconds(-5)}>
+          - 5
+        </button>
+      )}
+      <div
+        className={bounce ? "time bounce" : "time"}
+        onAnimationEnd={() => setBounce(false)}
+      >
+        {seconds}
+      </div>
+      {true && (
+        <button className="btn add" onClick={() => modifySeconds(5)}>
+          + 5
+        </button>
+      )}
     </div>
   );
 };
