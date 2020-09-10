@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { ExerciseDescription } from "../types";
 import Timer from "./Timer";
+
+import { ExerciseDescription } from "../types";
+
+import "../App.scss";
 
 interface Props {
   exercise: ExerciseDescription;
@@ -10,12 +13,12 @@ interface Props {
 const ExerciseInstructions = ({ exercise, onComplete, ...props }: Props) => {
   const [completed, setCompleted] = useState(false);
 
-  //   let exerciseInstructions;
+  let exerciseInstructions;
   if (exercise.rest === -1) {
-    return <h1>Chill</h1>;
+    exerciseInstructions = <h1>Chill</h1>;
   } else if (exercise.duration) {
     if (!completed) {
-      return (
+      exerciseInstructions = (
         <Timer
           allowModifing={false}
           time={exercise.duration}
@@ -23,20 +26,26 @@ const ExerciseInstructions = ({ exercise, onComplete, ...props }: Props) => {
         />
       );
     } else {
-      return <button onClick={onComplete}>Complete</button>;
+      exerciseInstructions = (
+        <button className="btn hvr-info space" onClick={onComplete}>
+          Complete
+        </button>
+      );
     }
   } else {
-    return (
-      <div>
+    exerciseInstructions = (
+      <div className="instruction">
         <p>
           {exercise.repeats} reps {exercise.bothSided && "each"}
         </p>
-        <button onClick={onComplete}>Complete</button>
+        <button className="btn hvr-info" onClick={onComplete}>
+          Complete
+        </button>
       </div>
     );
   }
 
-  //   return <React.Fragment>{exerciseInstructions}</React.Fragment>;
+  return <React.Fragment>{exerciseInstructions}</React.Fragment>;
 };
 
 export default ExerciseInstructions;

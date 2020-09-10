@@ -22,7 +22,7 @@ export function getDayWorkout(id: number): DayWorkout {
     name: "Day 4 (Upper Body)",
     rounds: [
       {
-        repeats: 1,
+        repeats: 3,
         rest: 120,
         exercises: [
           {

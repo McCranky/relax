@@ -16,7 +16,7 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
 
   const modifySeconds = (num: number) => {
     setBounce(true);
-    setSeconds(seconds + num);
+    setSeconds((sec) => (sec + num < 0 ? 0 : sec + num));
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   return (
     <div className="timer">
       {true && (
-        <button className="btn sub" onClick={() => modifySeconds(-5)}>
+        <button className="btn hvr-danger" onClick={() => modifySeconds(-5)}>
           - 5
         </button>
       )}
@@ -55,7 +55,7 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
         {seconds}
       </div>
       {true && (
-        <button className="btn add" onClick={() => modifySeconds(5)}>
+        <button className="btn hvr-success" onClick={() => modifySeconds(5)}>
           + 5
         </button>
       )}
