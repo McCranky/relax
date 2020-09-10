@@ -8,6 +8,7 @@ import { DayWorkout, ExerciseDescription } from "../types/index";
 
 import "../App.scss";
 import WorkoutDayProgressInfo from "./../components/WorkoutDayProgressInfo";
+import ExercisesList from "../components/ExercisesList";
 
 interface Props {
   workout: DayWorkout;
@@ -46,7 +47,7 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
 
   useEffect(() => {
     setRoundRepeats(workout.rounds[roundIndex].repeats);
-  }, [roundIndex]);
+  }, [roundIndex, workout.rounds]);
 
   useEffect(() => {
     setExerciseDescription(workout.rounds[roundIndex].exercises[exerciseIndex]);
@@ -54,11 +55,14 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
 
   if (isExerciseRest)
     return (
-      <Timer
-        allowModifing={true}
-        time={exerciseDescription.rest}
-        onTimeRunsOut={() => setIsExerciseRest(false)}
-      />
+      <React.Fragment>
+        <Timer
+          allowModifing={true}
+          time={exerciseDescription.rest}
+          onTimeRunsOut={() => setIsExerciseRest(false)}
+        />
+        <p>Next: {workout.rounds[roundIndex].exercises[exerciseIndex].exercise.name}</p>
+      </React.Fragment>
     );
   if (isRoundRest)
     return (
@@ -82,6 +86,10 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
       <ExerciseInstructions
         exercise={exerciseDescription}
         onComplete={handleExerciseCompletion}
+      />
+      <ExercisesList
+        exercises={workout.rounds[roundIndex].exercises.map((ex) => ex.exercise)}
+        currentExerciseIndex={exerciseIndex}
       />
     </React.Fragment>
   );
