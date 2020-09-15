@@ -25,6 +25,7 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
   const [exerciseDescription, setExerciseDescription] = useState<ExerciseDescription>({
     rest: -1,
     exercise: { name: "Chill" },
+    instructions: "Chill",
   });
 
   const handleExerciseCompletion = () => {

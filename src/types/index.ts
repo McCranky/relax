@@ -4,10 +4,7 @@ export interface Exercise {
 
 export interface ExerciseDescription {
   exercise: Exercise;
-  duration?: number;
-  repeats?: number;
-  bothSided?: boolean;
-  challange?: string;
+  instructions: string;
   rest: number;
 }
 

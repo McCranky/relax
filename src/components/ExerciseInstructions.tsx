@@ -13,39 +13,40 @@ interface Props {
 const ExerciseInstructions = ({ exercise, onComplete, ...props }: Props) => {
   const [completed, setCompleted] = useState(false);
 
-  let exerciseInstructions;
-  if (exercise.rest === -1) {
-    exerciseInstructions = <h1>Chill</h1>;
-  } else if (exercise.duration) {
-    if (!completed) {
-      exerciseInstructions = (
+  const bothSided = exercise.instructions.includes("each");
+  const challange = exercise.instructions.includes("max");
+  const timed = exercise.instructions.includes("seconds");
+  const duration = +exercise.instructions.split(" ")[0];
+
+  return (
+    <React.Fragment>
+      {/* If the exercise is a challange or based on repetitions */}
+      {(challange || !timed) && (
+        <div className="instruction">
+          <p>{exercise.instructions}</p>
+          <button className="btn hvr-info" onClick={onComplete}>
+            Complete
+          </button>
+        </div>
+      )}
+
+      {/* If exercise is timed */}
+      {!challange && timed && !completed && (
         <Timer
           allowModifing={false}
-          time={exercise.bothSided ? exercise.duration * 2 : exercise.duration}
+          time={bothSided ? duration * 2 : duration}
           onTimeRunsOut={() => setCompleted(true)}
         />
-      );
-    } else {
-      exerciseInstructions = (
+      )}
+
+      {/* If time runs out in timed exercise*/}
+      {completed && (
         <button className="btn hvr-info space" onClick={onComplete}>
           Complete
         </button>
-      );
-    }
-  } else {
-    exerciseInstructions = (
-      <div className="instruction">
-        <p>
-          {exercise.repeats} reps {exercise.bothSided && "each"}
-        </p>
-        <button className="btn hvr-info" onClick={onComplete}>
-          Complete
-        </button>
-      </div>
-    );
-  }
-
-  return <React.Fragment>{exerciseInstructions}</React.Fragment>;
+      )}
+    </React.Fragment>
+  );
 };
 
 export default ExerciseInstructions;

@@ -10,7 +10,7 @@ const WorkoutWeek = ({ match, ...props }: RouteComponentProps<Props>) => {
   const [weekPlan] = useState(getWeekPlan(+match.params.weekId));
   return (
     <div>
-      <h1>Week {match.params.weekId} plan</h1>
+      <h1>Week {+match.params.weekId + 1} plan</h1>
       <ul>
         {weekPlan.map((day, index) => (
           <li key={index}>

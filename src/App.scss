@@ -27,6 +27,15 @@
   color: #61dafb;
 }
 
+table {
+  border-collapse: collapse;
+  border: 2px solid red;
+  font-size: 36px;
+  tr {
+    border-bottom: 1px solid green;
+  }
+}
+
 nav {
   width: 100%;
   background: #ecf0f1;
@@ -60,33 +69,6 @@ video.flat {
   justify-content: space-around;
   align-items: center;
   text-align: center;
-}
-
-.timer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  .time {
-    font-size: 3rem;
-    padding: 2rem;
-  }
-
-  .bounce {
-    animation: bounce 0.2s 1;
-  }
-
-  @keyframes bounce {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
 }
 
 .btn {

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UIfx from "uifx";
+import { Wrapper, Text } from "./styles/Timer.styled";
+import { Button, ButtonDanger, ButtonSuccess } from "./common/styles/Button.styled";
 import "../App.scss";
 
 interface Props {
@@ -21,8 +23,8 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   };
 
   useEffect(() => {
-    let interval = {} as NodeJS.Timeout;
-    let timeout = {} as NodeJS.Timeout;
+    let interval = 0; // = {} as NodeJS.Timeout;
+    let timeout = 0; //= {} as NodeJS.Timeout;
     if (seconds > 0) {
       interval = setInterval(() => {
         setSeconds((seconds) => seconds - 1);
@@ -43,24 +45,16 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   }, [seconds, beep, onTimeRunsOut]);
 
   return (
-    <div className="timer">
-      {true && (
-        <button className="btn hvr-danger" onClick={() => modifySeconds(-5)}>
-          - 5
-        </button>
-      )}
-      <div
-        className={bounce ? "time bounce" : "time"}
-        onAnimationEnd={() => setBounce(false)}
-      >
+    <Wrapper>
+      {true && <ButtonDanger onClick={() => modifySeconds(-5)}> - 5</ButtonDanger>}
+
+      <Text bounce={bounce} onAnimationEnd={() => setBounce(false)}>
         {seconds}
-      </div>
-      {true && (
-        <button className="btn hvr-success" onClick={() => modifySeconds(5)}>
-          + 5
-        </button>
-      )}
-    </div>
+      </Text>
+
+      {true && <ButtonSuccess onClick={() => modifySeconds(5)}>+ 5</ButtonSuccess>}
+      <Button onClick={() => setSeconds(0)}>Skip</Button>
+    </Wrapper>
   );
 };
 

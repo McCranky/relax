@@ -15,10 +15,6 @@ const WorkoutStarter = ({ match, ...props }: RouteComponentProps<Props>) => {
   const [completed, setCompleted] = useState(false);
   const [workout] = useState(getDayWorkout(+match.params.weekId, +match.params.dayId));
 
-  // useEffect(() => {
-  //     setWorkoutDuration(getDayWorkout(+props.match.params.id));
-  // }, [])
-
   const handleStart = () => {
     setWorkoutDuration(Date.now());
     setStarted(true);
@@ -34,19 +30,21 @@ const WorkoutStarter = ({ match, ...props }: RouteComponentProps<Props>) => {
     return `${Math.floor(seconds / 60)}min ${seconds % 60}sec`;
   };
 
-  let render;
-  if (!started)
-    render = (
-      <button className="btn hvr-success" onClick={handleStart}>
-        Start
-      </button>
-    );
-  else if (completed) {
-    render = <h1>Completed in {formatTime()}, noice!</h1>;
-  } else {
-    render = <WorkoutDay workout={workout} onWorkoutComplete={handleWorkoutFinish} />;
-  }
-  return <React.Fragment>{render}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {!started && (
+        <button className="btn hvr-success" onClick={handleStart}>
+          Start
+        </button>
+      )}
+
+      {completed && <h1>Completed in {formatTime()}, noice!</h1>}
+
+      {started && !completed && (
+        <WorkoutDay workout={workout} onWorkoutComplete={handleWorkoutFinish} />
+      )}
+    </React.Fragment>
+  );
 };
 
 export default WorkoutStarter;
