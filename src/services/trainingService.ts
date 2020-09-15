@@ -1,9 +1,21 @@
 import { DayWorkout } from "../types";
+// import data from "../data.json";
+import { WeekPlan } from "./../types/index";
 
 const apiEndpoint = process.env.REACT_APP_ASSETS;
+const data = getData();
 
 function exerciseUrl(name: string) {
   return `${apiEndpoint}/exercises/${name}.mp4`;
+}
+
+export function getWeekPlan(weekId: number): string[] {
+  // const plan: WeekPlan[] = data;
+  return data[weekId].dayliWorkouts.map((work) => work.name);
+}
+
+export function getPlanWeeks(planId: number): string[] {
+  return data.map((week) => week.name);
 }
 
 export function getExercise(name: string) {
@@ -17,46 +29,12 @@ export function getRestDay(): DayWorkout {
   };
 }
 
-export function getDayWorkout(id: number): DayWorkout {
-  return {
-    name: "Day 4 (Upper Body)",
-    rounds: [
-      {
-        repeats: 3,
-        rest: 120,
-        exercises: [
-          {
-            exercise: { name: "Jumping Jacks" },
-            rest: 45,
-            duration: 35,
-          },
-          {
-            exercise: { name: "Handstand Kick Ups" },
-            rest: 45,
-            repeats: 8,
-          },
-          {
-            exercise: { name: "Butterflies" },
-            rest: 45,
-            duration: 30,
-          },
-          {
-            exercise: { name: "Decline Push Up" },
-            rest: 45,
-            repeats: 15,
-          },
-          {
-            exercise: { name: "Elevated Pike Push Up" },
-            rest: 45,
-            repeats: 10,
-          },
-          {
-            exercise: { name: "Burpee (Beginner)" },
-            rest: 45,
-            repeats: 10,
-          },
-        ],
-      },
-    ],
-  };
+export function getDayWorkout(weekId: number, dayId: number): DayWorkout {
+  // console.log(data.length);
+  // const plan: WeekPlan[] = data;
+  return data[weekId].dayliWorkouts[dayId];
+}
+
+function getData(): WeekPlan[] {
+  return [];
 }

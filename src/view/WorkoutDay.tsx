@@ -37,6 +37,7 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
         onWorkoutComplete();
       } else {
         setRoundIndex((index) => index + 1);
+        setCurrentRepeat(1);
         setIsRoundRest(true);
       }
     } else {

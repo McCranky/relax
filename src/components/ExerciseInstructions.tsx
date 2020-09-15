@@ -21,7 +21,7 @@ const ExerciseInstructions = ({ exercise, onComplete, ...props }: Props) => {
       exerciseInstructions = (
         <Timer
           allowModifing={false}
-          time={exercise.duration}
+          time={exercise.bothSided ? exercise.duration * 2 : exercise.duration}
           onTimeRunsOut={() => setCompleted(true)}
         />
       );

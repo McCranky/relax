@@ -7,6 +7,7 @@ export interface ExerciseDescription {
   duration?: number;
   repeats?: number;
   bothSided?: boolean;
+  challange?: string;
   rest: number;
 }
 
