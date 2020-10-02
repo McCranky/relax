@@ -3,6 +3,7 @@ import "../App.scss";
 import WorkoutDay from "../view/WorkoutDay";
 import { getDayWorkout } from "../services/trainingService";
 import { RouteComponentProps } from "react-router-dom";
+import { ButtonSuccess } from "../components/common/styles/Button.styled";
 
 interface Props {
   dayId: string;
@@ -31,19 +32,19 @@ const WorkoutStarter = ({ match, ...props }: RouteComponentProps<Props>) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {!started && (
-        <button className="btn hvr-success" onClick={handleStart}>
+        <ButtonSuccess className="center" onClick={handleStart}>
           Start
-        </button>
+        </ButtonSuccess>
       )}
 
-      {completed && <h1>Completed in {formatTime()}, noice!</h1>}
+      {completed && <h1 className="center">Completed in {formatTime()}, noice!</h1>}
 
       {started && !completed && (
         <WorkoutDay workout={workout} onWorkoutComplete={handleWorkoutFinish} />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
+import DaysTable from "../components/DaysTable";
 import { getWeekPlan } from "./../services/trainingService";
 
 interface Props {
@@ -10,17 +11,8 @@ const WorkoutWeek = ({ match, ...props }: RouteComponentProps<Props>) => {
   const [weekPlan] = useState(getWeekPlan(+match.params.weekId));
   return (
     <div>
-      <h1>Week {+match.params.weekId + 1} plan</h1>
-      <ul>
-        {weekPlan.map((day, index) => (
-          <li key={index}>
-            {(!day.includes("Rest") && (
-              <Link to={`/day/${match.params.weekId}/${index}`}>{day}</Link>
-            )) ||
-              day}
-          </li>
-        ))}
-      </ul>
+      <h2>Week {+match.params.weekId + 1} plan</h2>
+      <DaysTable data={weekPlan} weekId={+match.params.weekId} />
     </div>
   );
 };

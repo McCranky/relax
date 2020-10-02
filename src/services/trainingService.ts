@@ -11,7 +11,14 @@ function exerciseUrl(name: string) {
 
 export function getWeekPlan(weekId: number): string[] {
   // const plan: WeekPlan[] = data;
-  return data[weekId].dayliWorkouts.map((work) => work.name);
+  let result = data[weekId].dayliWorkouts.map((work) => {
+    if (work.name.toLowerCase().includes("rest")) {
+      return work.name;
+    } else {
+      return work.name.substring(work.name.indexOf("(") + 1, work.name.indexOf(")"));
+    }
+  });
+  return result;
 }
 
 export function getPlanWeeks(planId: number): string[] {

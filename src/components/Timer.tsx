@@ -15,7 +15,6 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   const [seconds, setSeconds] = useState(props.time);
   const [bounce, setBounce] = useState(false);
   const beep = new UIfx(props.sfx || process.env.REACT_APP_ASSETS + "/sfx/ding.mp3");
-  console.log(process.env.REACT_APP_ASSETS + "/sfx/ding.mp3");
 
   const modifySeconds = (num: number) => {
     setBounce(true);
@@ -53,7 +52,7 @@ const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
       </Text>
 
       {true && <ButtonSuccess onClick={() => modifySeconds(5)}>+ 5</ButtonSuccess>}
-      <Button onClick={() => setSeconds(0)}>Skip</Button>
+      <Button onClick={onTimeRunsOut}>Skip</Button>
     </Wrapper>
   );
 };

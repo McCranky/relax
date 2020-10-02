@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import WorkoutWeek from "./view/WorkoutWeek";
 import { Redirect, Route, Switch } from "react-router-dom";
-import WorkoutStarter from "./components/WorkoutStarter";
+import WorkoutStarter from "./view/WorkoutStarter";
 import WorkoutPlan from "./view/WorkoutPlan";
 
 function App() {
