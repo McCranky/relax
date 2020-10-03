@@ -14,7 +14,7 @@ interface Props {
 const Timer = ({ allowModifing, onTimeRunsOut, ...props }: Props) => {
   const [seconds, setSeconds] = useState(props.time);
   const [bounce, setBounce] = useState(false);
-  const beep = new UIfx(props.sfx || process.env.REACT_APP_ASSETS + "/sfx/ding.mp3");
+  const beep = new UIfx(props.sfx || "/sfx/ding.mp3"); //process.env.REACT_APP_ASSETS +
 
   const modifySeconds = (num: number) => {
     setBounce(true);

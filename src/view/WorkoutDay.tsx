@@ -24,7 +24,7 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
   const [isRoundRest, setIsRoundRest] = useState(false);
   const [exerciseDescription, setExerciseDescription] = useState<ExerciseDescription>({
     rest: -1,
-    exercise: { name: "Chill" },
+    exercise: { name: "Switching Lunges" },
     instructions: "Chill",
   });
 

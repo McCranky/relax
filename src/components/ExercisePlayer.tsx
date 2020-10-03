@@ -9,9 +9,7 @@ interface Props {
 }
 
 const ExercisePlayer = ({ exercise, ...props }: Props) => {
-  const [url, setUrl] = useState(
-    `${process.env.REACT_APP_ASSETS}/exercises/${exercise.name}.mp4`
-  );
+  const [url, setUrl] = useState(`/exercises/${exercise.name}.mp4`); //${process.env.REACT_APP_ASSETS}
 
   // useEffect(() => {
   //   fetch(`${process.env.REACT_APP_ASSETS}/exercises/${exercise.name}.mp4`, {
@@ -24,13 +22,17 @@ const ExercisePlayer = ({ exercise, ...props }: Props) => {
   //   });
   // }, [url, exercise.name]);
   useEffect(() => {
-    setUrl(`${process.env.REACT_APP_ASSETS}/exercises/${exercise.name}.mp4`);
-  }, [exercise]);
+    setUrl(`/exercises/${exercise.name}.mp4`); //${process.env.REACT_APP_ASSETS}
+    console.log(url);
+  }, [exercise, url]);
 
   return (
     <React.Fragment>
       <p className="title">{exercise.name}</p>
-      <video className="flat" autoPlay loop muted playsInline src={url} />
+      <video className="flat" autoPlay loop muted playsInline>
+        <source src={url} />
+        <source src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4" />
+      </video>
     </React.Fragment>
   );
 };
