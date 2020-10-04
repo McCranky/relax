@@ -12,8 +12,9 @@ const WorkoutPlan = ({ match, ...props }: RouteComponentProps<Props>) => {
 
   return (
     <>
-      <h2>No Wquipment Home Beginner Program</h2>
-      <WeeksTable data={planWeeks} />
+      {match.params.planId === "0" && <h2>No Wquipment Home Beginner Program</h2>}
+      {match.params.planId !== "0" && <h2>Beginner Program</h2>}
+      <WeeksTable planId={+match.params.planId} data={planWeeks} />
     </>
   );
 };

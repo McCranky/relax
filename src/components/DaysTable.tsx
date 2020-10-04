@@ -9,7 +9,7 @@ import {
 
 interface Props {
   data: string[];
-  weekId: number;
+  weekId: string;
 }
 
 const DaysTable = ({ data, weekId, ...props }: Props) => {
@@ -28,7 +28,7 @@ const DaysTable = ({ data, weekId, ...props }: Props) => {
               <td>{index + 1}</td>
               {(!d.toLowerCase().includes("rest") && (
                 <CellPositive>
-                  <LinkData to={`/day/${weekId}/${index}`}>{d}</LinkData>
+                  <LinkData to={`/day/${weekId}${index}`}>{d}</LinkData>
                 </CellPositive>
               )) || <CellNegative>{d}</CellNegative>}
             </Row>

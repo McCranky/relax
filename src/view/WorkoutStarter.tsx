@@ -7,14 +7,19 @@ import { ButtonSuccess } from "../components/common/styles/Button.styled";
 
 interface Props {
   dayId: string;
-  weekId: string;
 }
 
 const WorkoutStarter = ({ match, ...props }: RouteComponentProps<Props>) => {
   const [started, setStarted] = useState(false);
   const [workoutDuration, setWorkoutDuration] = useState(0);
   const [completed, setCompleted] = useState(false);
-  const [workout] = useState(getDayWorkout(+match.params.weekId, +match.params.dayId));
+  const [workout] = useState(
+    getDayWorkout(
+      +match.params.dayId[0],
+      +match.params.dayId[1],
+      +match.params.dayId[2]
+    )
+  );
 
   const handleStart = () => {
     setWorkoutDuration(Date.now());

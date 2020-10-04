@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="app">
       <Switch>
-        <Route path="/" exact component={WorkoutPlan} />
+        <Route path="/plans/:planId" exact component={WorkoutPlan} />
         <Route path="/week/:weekId" exact component={WorkoutWeek} />
-        <Route path="/day/:weekId/:dayId" exact component={WorkoutStarter} />
-        <Redirect to="/" />
+        <Route path="/day/:dayId" exact component={WorkoutStarter} />
+        <Redirect to="/plans/0" />
       </Switch>
     </div>
   );

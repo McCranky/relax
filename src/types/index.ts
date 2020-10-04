@@ -26,3 +26,8 @@ export interface WeekPlan {
   name: string;
   dayliWorkouts: DayWorkout[];
 }
+
+export interface Plan {
+  name: string;
+  planWeeks: WeekPlan[];
+}
