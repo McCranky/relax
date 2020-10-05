@@ -9,6 +9,7 @@ import { DayWorkout, ExerciseDescription } from "../types/index";
 import "../App.scss";
 import WorkoutDayProgressInfo from "./../components/WorkoutDayProgressInfo";
 import ExercisesList from "../components/ExercisesList";
+import { ListWrapper, WorkoutWrapper, Wrapper } from "./styles/WorkoutDay.styled";
 
 interface Props {
   workout: DayWorkout;
@@ -55,27 +56,8 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
     setExerciseDescription(workout.rounds[roundIndex].exercises[exerciseIndex]);
   }, [workout.rounds, roundIndex, exerciseIndex]);
 
-  if (isExerciseRest)
-    return (
-      <React.Fragment>
-        <Timer
-          allowModifing={true}
-          time={exerciseDescription.rest}
-          onTimeRunsOut={() => setIsExerciseRest(false)}
-        />
-        <p>Next: {workout.rounds[roundIndex].exercises[exerciseIndex].exercise.name}</p>
-      </React.Fragment>
-    );
-  if (isRoundRest)
-    return (
-      <Timer
-        allowModifing={true}
-        time={workout.rounds[roundIndex].rest}
-        onTimeRunsOut={() => setIsRoundRest(false)}
-      />
-    );
   return (
-    <React.Fragment>
+    <>
       <WorkoutDayProgressInfo
         currentExercise={exerciseIndex + 1}
         currentRound={roundIndex + 1}
@@ -84,16 +66,50 @@ const WorkoutDay = ({ workout, onWorkoutComplete, ...props }: Props) => {
         roundRepeats={workout.rounds[roundIndex].repeats}
         currentRepeat={currentRepeat}
       />
-      <ExercisePlayer exercise={exerciseDescription.exercise} />
-      <ExerciseInstructions
-        exercise={exerciseDescription}
-        onComplete={handleExerciseCompletion}
-      />
-      <ExercisesList
-        exercises={workout.rounds[roundIndex].exercises.map((ex) => ex.exercise)}
-        currentExerciseIndex={exerciseIndex}
-      />
-    </React.Fragment>
+
+      <Wrapper>
+        <WorkoutWrapper>
+          {isExerciseRest && (
+            <React.Fragment>
+              <Timer
+                allowModifing={true}
+                time={exerciseDescription.rest}
+                onTimeRunsOut={() => setIsExerciseRest(false)}
+              />
+              <p>
+                Next:{" "}
+                {workout.rounds[roundIndex].exercises[exerciseIndex].exercise.name}
+              </p>
+            </React.Fragment>
+          )}
+
+          {isRoundRest && (
+            <Timer
+              allowModifing={true}
+              time={workout.rounds[roundIndex].rest}
+              onTimeRunsOut={() => setIsRoundRest(false)}
+            />
+          )}
+
+          {!isExerciseRest && !isRoundRest && (
+            <>
+              <ExercisePlayer exercise={exerciseDescription.exercise} />
+              <ExerciseInstructions
+                exercise={exerciseDescription}
+                onComplete={handleExerciseCompletion}
+              />
+            </>
+          )}
+        </WorkoutWrapper>
+
+        <ListWrapper>
+          <ExercisesList
+            exercises={workout.rounds[roundIndex].exercises.map((ex) => ex.exercise)}
+            currentExerciseIndex={exerciseIndex}
+          />
+        </ListWrapper>
+      </Wrapper>
+    </>
   );
 };
 
